@@ -1,4 +1,4 @@
-from spyl import Search, UserSource
+from spyl import Search
 
 
 def test_sanity():
