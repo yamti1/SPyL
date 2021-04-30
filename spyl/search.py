@@ -1,15 +1,15 @@
 from dataclasses import dataclass
-from typing import Iterable
+from typing import Iterator
 
 from .commands import dedup, print_gen
 
 
 @dataclass
 class Search:
-    _pipeline: Iterable
+    _pipeline: Iterator[dict]
 
     def dedup(self, *args, **kwargs) -> 'Search':
-        self._pipeline = dedup(self._pipeline)
+        self._pipeline = dedup(self._pipeline, *args, **kwargs)
         return self
 
     def transaction(self, *args, **kwargs) -> 'Search':
