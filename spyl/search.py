@@ -1,7 +1,8 @@
 from dataclasses import dataclass
-from typing import Iterator
+from typing import Iterator, Callable, Union
 
 from .commands import dedup, print_gen
+from .filter import Filter
 
 
 @dataclass
@@ -14,6 +15,11 @@ class Search:
 
     def transaction(self, *args, **kwargs) -> 'Search':
         pass
+
+    # TODO: test
+    def filter(self, arg: Union[dict, Callable]) -> 'Search':
+        self._pipeline = filter(Filter(arg), self._pipeline)
+        return self
 
     def out(self) -> 'Search':
         self._pipeline = print_gen(self._pipeline)
